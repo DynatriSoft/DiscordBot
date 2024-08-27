@@ -6,7 +6,7 @@ const CLIENT_ID = process.env.CLIENT_ID as string;
 
 const commands = [
     {
-        name: 'ping',
+        name: 'piiing',
         description: 'Replies with Pong!',
     },
 ];
