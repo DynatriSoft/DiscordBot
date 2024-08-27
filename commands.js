@@ -2,8 +2,8 @@ import {REST, Routes} from 'discord.js';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const TOKEN = process.env.TOKEN as string;
-const CLIENT_ID = process.env.CLIENT_ID as string;
+const TOKEN = process.env.TOKEN;
+const CLIENT_ID = process.env.CLIENT_ID;
 
 const commands = [];
 const foldersPath = path.join(__dirname, 'commands');
