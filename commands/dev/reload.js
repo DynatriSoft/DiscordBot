@@ -10,9 +10,18 @@ module.exports = {
                 .setDescription('The command to reload.')
                 .setRequired(true)),
     async execute(interaction) {
-        const commandName = interaction.options.getString('command', true).toLowerCase();
-        const command = interaction.client.commands.get(commandName);
+        const allowedUsers = process.env.DEVELOPER ? process.env.DEVELOPER.split(',') : [];
 
+        if (!allowedUsers.includes(interaction.user.id)) {
+            return interaction.reply({ content: 'You do not have permission to use this command.', ephemeral: true });
+        }
+
+        const commandName = interaction.options.getString('command', true).toLowerCase();
+        if (!commandName) {
+            return interaction.reply('Please provide a command to reload.');
+        }
+
+        const command = interaction.client.commands.get(commandName);
         if (!command) {
             return interaction.reply(`There is no command with name \`${commandName}\`!`);
         }
