@@ -1,11 +1,15 @@
 import 'dotenv/config';
 import fs from 'node:fs';
 import path from 'node:path';
-import {Client, Collection, GatewayIntentBits} from 'discord.js';
+import {Client, Collection, GatewayIntentBits, Options} from 'discord.js';
 
 const TOKEN = process.env.TOKEN;
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({
+    makeCache: Options.cacheWithLimits(Options.DefaultMakeCacheSettings),
+    sweepers: Options.DefaultSweeperSettings,
+    intents: [GatewayIntentBits.Guilds]
+});
 
 client.commands = new Collection()
 
