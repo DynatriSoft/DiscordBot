@@ -24,7 +24,7 @@ module.exports = {
         }
 
         try {
-            let result = await eval(`(async () => { ${command} })()`);
+            let result = await eval(command);
 
             if (typeof result !== 'string') {
                 result = inspect(result, { depth: 0 });
