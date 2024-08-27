@@ -26,25 +26,24 @@ module.exports = {
             return interaction.reply({ embeds: [errorEmbed], ephemeral: true });
         }
 
+        const disallowedPatterns = [
+            'process.env',
+            'client.token',
+            'client.user.token',
+            'client.user.email',
+            'client.user.password',
+        ];
+
+        if (disallowedPatterns.some(pattern => command.includes(pattern))) {
+            const errorEmbed = createErrorEmbed('Forbidden', 'Access to sensitive information is not allowed.');
+            return interaction.reply({ embeds: [errorEmbed], ephemeral: true });
+        }
+
         try {
-            if (command.includes('process.env')) {
-                throw new Error('Access to process.env is not allowed.');
-            }
-            if (command.includes('client.token')) {
-                throw new Error('Access to client token is not allowed.');
-            }
-            if (command.includes('client.user.token')) {
-                throw new Error('Access to client user token is not allowed.');
-            }
-            if (command.includes('client.user.email')) {
-                throw new Error('Access to client user email is not allowed.');
-            }
-            if (command.includes('client.user.password')) {
-                throwg new Error('Access to client user password is not allowed.');
-            }
             if (command.includes('error:test')) {
                 throw new Error('Test error');
             }
+
             let result = await eval(command);
 
             if (typeof result !== 'string') {
