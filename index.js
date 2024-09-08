@@ -5,7 +5,7 @@ import path from 'path';
 
 const TOKEN = process.env.TOKEN;
 
-const htmlFilePath = path.join(__dirname, 'index.html');
+const htmlFilePath = path.join(__dirname, './website/index.html');
 
 const server = http.createServer((req, res) => {
     fs.readFile(htmlFilePath, (err, data) => {

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DynatriSoft Discord Bot Status</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 h-screen flex items-center justify-center">
+
+  <!-- Card container -->
+  <div class="bg-gray-800 text-white rounded-lg shadow-lg p-8 w-96 transform transition-all duration-500 hover:scale-105 pulse">
+
+
+    <!-- Heading -->
+    <h1 class="text-3xl font-bold text-center mb-4">DynatriSoft Bot Status</h1>
+
+    <!-- Animated message -->
+    <div id="statusMessage" class="text-xl font-semibold text-green-400 text-center opacity-0 transition-opacity duration-700">
+      DynatriSoft Discord Bot is running
+    </div>
+    
+    <!-- Divider -->
+    <div class="mt-6 border-t border-gray-700"></div>
+
+    <!-- Footer -->
+    <div class="mt-4 text-center text-sm text-gray-400">
+      Updated in real-time
+    </div>
+  </div>
+
+  <script>
+    const messages = {
+      en: "DynatriSoft Discord Bot is running",
+      pt: "O bot do Discord da DynatriSoft está funcionando"
+    };
+
+    function detectLanguage() {
+      const userLang = navigator.language || navigator.userLanguage;
+      return userLang.startsWith('pt') ? 'pt' : 'en';
+    }
+
+    const language = detectLanguage();
+    const message = messages[language];
+
+    const statusMessageElement = document.getElementById("statusMessage");
+    statusMessageElement.textContent = message;
+    setTimeout(() => {
+      statusMessageElement.style.opacity = 1;
+    }, 500);
+  </script>
+
+</body>
+</html>
