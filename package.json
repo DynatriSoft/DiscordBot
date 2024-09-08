@@ -7,8 +7,9 @@
     "refresh:commands": "bun ./commands.js"
   },
   "dependencies": {
-    "discord.js": "^14.15.3",
+    "discord.js": "^14.16.1",
     "dotenv": "^16.4.5",
+    "express": "^4.19.2",
     "nodemon": "^3.1.4"
   },
   "devDependencies": {

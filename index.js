@@ -1,30 +1,21 @@
 import 'dotenv/config';
-import http from 'http';
-import fs from 'fs';
+import express from 'express';
 import path from 'path';
+import { ShardingManager } from 'discord.js';
 
+const app = express();
+const PORT = process.env.PORT || 3000;
 const TOKEN = process.env.TOKEN;
 
-const htmlFilePath = path.join(__dirname, './website/index.html');
+const htmlFilePath = path.join(__dirname, 'website/index.html');
 
-const server = http.createServer((req, res) => {
-    fs.readFile(htmlFilePath, (err, data) => {
-        if (err) {
-            res.writeHead(500, {'Content-Type': 'text/plain'});
-            res.end('Error loading the page');
-        } else {
-            res.writeHead(200, {'Content-Type': 'text/html'});
-            res.end(data);
-        }
-    });
+app.get('/', (req, res) => {
+    res.sendFile(htmlFilePath);
 });
 
-server.listen(process.env.PORT || 3000, async () => {
-    console.log('HTTP server running');
-
-    const { ShardingManager } = require('discord.js');
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
     const manager = new ShardingManager('./bot.js', { token: TOKEN });
-    
     manager.on('shardCreate', shard => console.log(`Launched shard ${shard.id}`));
-    await manager.spawn();
+    manager.spawn();
 });
